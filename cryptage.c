@@ -2,43 +2,54 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#include "Algorithme/algorithme_1.c"
-#include "Algorithme/algorithme_2.c"
-#include "Algorithme/algorithme_3.c"
-#include "Algorithme/algorithme_4.c"
-#include "Algorithme/algorithme_5.c"
-#include "Algorithme/algorithme_6.c"
-#include "Algorithme/algorithme_7.c"
-#include "Algorithme/algorithme_8.c"
-#include "Algorithme/algorithme_9.c"
 
-
-int fonctionChoixDuCryptage (int premiereBorne, int deuxiemeBorne) //Cette fonction permet de determiner quelle m√©thode de cryptage sera utilis√©e
+int fonctionChoixDuCryptage (int premiereBorne, int deuxiemeBorne) //Cette fonction permet de determiner quelle mÈthode de cryptage sera utilisÈe
 {
         return rand()%(deuxiemeBorne-premiereBorne) +premiereBorne;
 }
 
-void ecritureFichierDecryptage (int choixDuCryptage) //cette proc√©dure √©crira dans le fichier decryptage.txt la cl√© n√©cessaire au d√©cryptage des informations
+char cryptageCesar (caractereEnCours)
 {
-    FILE* fichier2 = NULL;
+    /* Si le caractere est une minuscule */
+    if ('a' <= caractereEnCours && caractereEnCours <= 'z')
+        caractereEnCours = 'a' + ((caractereEnCours - 'a') + 13)%26;
+    else
+        /* Si le caractere est une majuscule */
+    if ('A' <= caractereEnCours && caractereEnCours <= 'Z')
+        caractereEnCours = 'A' + ((caractereEnCours - 'A') + 13)%26;
+    else
+        /* Si le caractere est un chiffre */
+    if ('0' <= caractereEnCours && caractereEnCours <= '9')
+        caractereEnCours = '0' + ((caractereEnCours - '0') + 13)%10;
 
-    fichier2 = fopen("decryptage.txt", "a");
-
-    if (fichier2 != NULL)
-    {
-        fprintf(fichier2,"%d",choixDuCryptage); // √âcriture du caract√®re contenu dans choixDuCryptage
-        fclose(fichier2);
-    }
+    return caractereEnCours;
 }
 
-char applicationCryptageCaractere (char caractereEnCours, int premiereBorne, int deuxiemeBorne) //Cette fonction contiendra l'ensemble des m√©thodes de cryptage du prgramme
+char decryptageCesar (caractereEnCours)
+{
+        /* Si le caractere est une minuscule */
+        if ('a' <= caractereEnCours && caractereEnCours <= 'z')
+            caractereEnCours = 'z' + ((caractereEnCours - 'z') - 13)%26;
+        else
+            /* Si le caractere est une majuscule */
+        if ('A' <= caractereEnCours && caractereEnCours <= 'Z')
+            caractereEnCours = 'Z' + ((caractereEnCours - 'Z') - 13)%26;
+        else
+            /* Si le caractere est un chiffre */
+        if ('0' <= caractereEnCours && caractereEnCours <= '9')
+            caractereEnCours = '0' + ((caractereEnCours - '0') - 13)%10;
+
+    return caractereEnCours;
+}
+
+char applicationCryptageCaractere (char caractereEnCours, int premiereBorne, int deuxiemeBorne) //Cette fonction contiendra l'ensemble des mÈthodes de cryptage du prgramme
 {
     int choixDuCryptage = fonctionChoixDuCryptage(premiereBorne, deuxiemeBorne);
     switch (choixDuCryptage)
     {
         case 1:
             ecritureFichierDecryptage(choixDuCryptage);
-
+            caractereEnCours = cryptageCesar(caractereEnCours);
             //ajouter l'appel ‡ la fonction de cryptage du fichier
             break;
         case 2:
@@ -72,13 +83,14 @@ char applicationCryptageCaractere (char caractereEnCours, int premiereBorne, int
         return caractereEnCours;
 }
 
-char applicationDecryptageCaractere (char caractereEnCours, int methodeDeDecryptage) //Cette fonction contiendra l'ensemble des m√©thodes de decryptage du programme
+char applicationDecryptageCaractere (char caractereEnCours, int methodeDeDecryptage) //Cette fonction contiendra l'ensemble des mÈthodes de decryptage du programme
 {
     int choixDuDecryptage = methodeDeDecryptage;
     switch (choixDuDecryptage)
     {
         case 1:
-            decryptageCesar(caractereEnCours);
+            printf("On rentre");
+            caractereEnCours = decryptageCesar(caractereEnCours);
             //puts("Methode 1");
             break;
         case 2:
@@ -111,6 +123,19 @@ char applicationDecryptageCaractere (char caractereEnCours, int methodeDeDecrypt
     return caractereEnCours;
 }
 
+void ecritureFichierDecryptage (int choixDuCryptage) //cette procÈdure Ècrira dans le fichier decryptage.txt la clÈ nÈcessaire au dÈcryptage des informations
+{
+    FILE* fichier2 = NULL;
+
+    fichier2 = fopen("decryptage.txt", "a");
+
+    if (fichier2 != NULL)
+    {
+        fprintf(fichier2,"%d",choixDuCryptage); // …criture du caractËre contenu dans choixDuCryptage
+        fclose(fichier2);
+    }
+}
+
 int lectureFichierDecryptage (long positionCaractereEnCours)
 {
     FILE* fichier2 = NULL;
@@ -134,10 +159,10 @@ int lectureFichierDecryptage (long positionCaractereEnCours)
 
     //printf("La variable methodeDeDecryptage dans lectureFichierDecryptage vaut : %d \n", methodeDeDecryptage);
 
-    return methodeDeDecryptage; //retourne le num√©ro de la m√©thode de cryptage √† utiliser pour le caract√®re positionCaractereEnCours
+    return methodeDeDecryptage; //retourne le numÈro de la mÈthode de cryptage ‡ utiliser pour le caractËre positionCaractereEnCours
 }
 
-void cryptageDuFichier (char caractereEnCours, int premiereBorne, int deuxiemeBorne) //Cette proc√©dure servira √† appeler l'ensemble des autres proc√©dures/fonction n√©cessaires au cryptage du fichier
+void cryptageDuFichier (char caractereEnCours, int premiereBorne, int deuxiemeBorne) //Cette procÈdure servira ‡ appeler l'ensemble des autres procÈdures/fonction nÈcessaires au cryptage du fichier
 {
     FILE* fichier = NULL;
     FILE* fichier2 = NULL;
@@ -147,10 +172,10 @@ void cryptageDuFichier (char caractereEnCours, int premiereBorne, int deuxiemeBo
     fichier2 = fopen("ContactCrypte.txt", "w");
     if (fichier != NULL)
     {
-        do                               /* On cr√©e une boucle afin de lire tous les caract√®res un par un, jusqu'√† ce que le r√©sultat contenu soit End Of File */
+        do                               /* On crÈe une boucle afin de lire tous les caractËres un par un, jusqu'‡ ce que le rÈsultat contenu soit End Of File */
         {
             caractereEnCours = fgetc(fichier);
-            printf("%c", applicationCryptageCaractere(caractereEnCours, premiereBorne, deuxiemeBorne));
+            //printf("%c", applicationCryptageCaractere(caractereEnCours, premiereBorne, deuxiemeBorne));
             //fputc(applicationCryptageCaractere(caractereEnCours, premiereBorne, deuxiemeBorne), fichier);
             fputc(applicationCryptageCaractere(caractereEnCours, premiereBorne, deuxiemeBorne), fichier2);
         } while (caractereEnCours != EOF);
@@ -174,9 +199,9 @@ void decryptageDuFichier (char caractereEnCours, long positionCaractereEnCours)
         do
         {
             caractereEnCours = fgetc(fichier);
-            methodeDeDecryptage = lectureFichierDecryptage(positionCaractereEnCours); //d√©termine la m√©thode de d√©cryptage √† utiliser pour d√©crypter le caract√®re caractereEnCours a la position positionCaractereEnCours
+            methodeDeDecryptage = lectureFichierDecryptage(positionCaractereEnCours); //dÈtermine la mÈthode de dÈcryptage ‡ utiliser pour dÈcrypter le caractËre caractereEnCours a la position positionCaractereEnCours
             positionCaractereEnCours += 1;
-            printf("%c", applicationDecryptageCaractere(caractereEnCours, methodeDeDecryptage));
+            //printf("%c", applicationDecryptageCaractere(caractereEnCours, methodeDeDecryptage));
             fputc(applicationDecryptageCaractere(caractereEnCours, methodeDeDecryptage), fichier3);
         } while (caractereEnCours != EOF);
     }
@@ -186,18 +211,18 @@ void decryptageDuFichier (char caractereEnCours, long positionCaractereEnCours)
 
 int main ()
 {
-    int premiereBorne = 1; //On souhaite que chaque caract√®re soit crypt√© entre 1
+    int premiereBorne = 1; //On souhaite que chaque caractËre soit cryptÈ entre 1
     int deuxiemeBorne = 9; //Et 9 fois
     long positionCaractereEnCours = 0;
     char caractereEnCours = ' ';
-    srand(time(NULL)); //time() retourne le nombre de secondes √©coul√©es depuis le 1er janvier 1970
+    srand(time(NULL)); //time() retourne le nombre de secondes ÈcoulÈes depuis le 1er janvier 1970
 
     puts("Le fichier va maintenant etre crypte...");
     cryptageDuFichier(caractereEnCours, premiereBorne, deuxiemeBorne);
 
     caractereEnCours = ' ';
     puts("Le fichier va maintenant etre decrypte...");
-    //decryptageDuFichier(caractereEnCours, positionCaractereEnCours);
+    decryptageDuFichier(caractereEnCours, positionCaractereEnCours);
 
     return 0;
 }
