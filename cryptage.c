@@ -2,13 +2,36 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+#include "Algorithme/algorithme_1.c"
+#include "Algorithme/algorithme_2.c"
+#include "Algorithme/algorithme_3.c"
+#include "Algorithme/algorithme_4.c"
+#include "Algorithme/algorithme_5.c"
+#include "Algorithme/algorithme_6.c"
+#include "Algorithme/algorithme_7.c"
+#include "Algorithme/algorithme_8.c"
+#include "Algorithme/algorithme_9.c"
+
 
 int fonctionChoixDuCryptage (int premiereBorne, int deuxiemeBorne) //Cette fonction permet de determiner quelle méthode de cryptage sera utilisée
 {
         return rand()%(deuxiemeBorne-premiereBorne) +premiereBorne;
 }
 
-char cryptageCesar (caractereEnCours)
+void ecritureFichierDecryptage (int choixDuCryptage) //cette procédure écrira dans le fichier decryptage.txt la clé nécessaire au décryptage des informations
+{
+    FILE* fichier2 = NULL;
+
+    fichier2 = fopen("decryptage.txt", "a");
+
+    if (fichier2 != NULL)
+    {
+        fprintf(fichier2,"%d",choixDuCryptage); // Écriture du caractère contenu dans choixDuCryptage
+        fclose(fichier2);
+    }
+}
+
+char cryptageCesar (char caractereEnCours)
 {
     /* Si le caractere est une minuscule */
     if ('a' <= caractereEnCours && caractereEnCours <= 'z')
@@ -25,7 +48,7 @@ char cryptageCesar (caractereEnCours)
     return caractereEnCours;
 }
 
-char decryptageCesar (caractereEnCours)
+char decryptageCesar (char caractereEnCours)
 {
         /* Si le caractere est une minuscule */
         if ('a' <= caractereEnCours && caractereEnCours <= 'z')
@@ -118,19 +141,6 @@ char applicationDecryptageCaractere (char caractereEnCours, int methodeDeDecrypt
             puts("Ce decryptage n'est pas disponible");
     }
     return caractereEnCours;
-}
-
-void ecritureFichierDecryptage (int choixDuCryptage) //cette procédure écrira dans le fichier decryptage.txt la clé nécessaire au décryptage des informations
-{
-    FILE* fichier2 = NULL;
-
-    fichier2 = fopen("decryptage.txt", "a");
-
-    if (fichier2 != NULL)
-    {
-        fprintf(fichier2,"%d",choixDuCryptage); // Écriture du caractère contenu dans choixDuCryptage
-        fclose(fichier2);
-    }
 }
 
 int lectureFichierDecryptage (long positionCaractereEnCours)
