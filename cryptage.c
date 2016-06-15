@@ -37,6 +37,7 @@ char applicationCryptageCaractere (char caractereEnCours, int premiereBorne, int
     {
         case 1:
             ecritureFichierDecryptage(choixDuCryptage);
+            caractereEnCours = algorithmeCryptage1(caractereEnCours);
             break;
         case 2:
             ecritureFichierDecryptage(choixDuCryptage);
