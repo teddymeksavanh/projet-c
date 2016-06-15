@@ -47,12 +47,11 @@ char applicationCryptageCaractere (char caractereEnCours, int premiereBorne, int
     {
         case 1:
             ecritureFichierDecryptage(choixDuCryptage);
-
+            caractereEnCours = cryptageCesar(caractereEnCours);
             //ajouter l'appel à la fonction de cryptage du fichier
             break;
         case 2:
             ecritureFichierDecryptage(choixDuCryptage);
-            caractereEnCours = cryptageCesar(caractereEnCours);
             break;
         case 3:
             ecritureFichierDecryptage(choixDuCryptage);
@@ -88,6 +87,7 @@ char applicationDecryptageCaractere (char caractereEnCours, int methodeDeDecrypt
     switch (choixDuDecryptage)
     {
         case 1:
+            decryptageCesar(caractereEnCours);
             //puts("Methode 1");
             break;
         case 2:
@@ -162,17 +162,22 @@ int lectureFichierDecryptage (long positionCaractereEnCours)
 void cryptageDuFichier (char caractereEnCours, int premiereBorne, int deuxiemeBorne) //Cette procédure servira à appeler l'ensemble des autres procédures/fonction nécessaires au cryptage du fichier
 {
     FILE* fichier = NULL;
+    FILE* fichier2 = NULL;
     //int caractereActuel = 0;
 
     fichier = fopen("Contact.txt", "r"); /* On ouvre le fichier en lecture seule */
+    fichier2 = fopen("ContactCrypte.txt", "w");
     if (fichier != NULL)
     {
         do                               /* On crée une boucle afin de lire tous les caractères un par un, jusqu'à ce que le résultat contenu soit End Of File */
         {
             caractereEnCours = fgetc(fichier);
             printf("%c", applicationCryptageCaractere(caractereEnCours, premiereBorne, deuxiemeBorne));
+            //fputc(applicationCryptageCaractere(caractereEnCours, premiereBorne, deuxiemeBorne), fichier);
+            fputc(applicationCryptageCaractere(caractereEnCours, premiereBorne, deuxiemeBorne), fichier2);
         } while (caractereEnCours != EOF);
         fclose(fichier);
+        fclose(fichier2);
         printf("\n");
         puts("FIN DU CRYPTAGE DU FICHIER !");
     }
@@ -181,9 +186,11 @@ void cryptageDuFichier (char caractereEnCours, int premiereBorne, int deuxiemeBo
 void decryptageDuFichier (char caractereEnCours, long positionCaractereEnCours)
 {
     FILE* fichier = NULL;
+    FILE* fichier3 = NULL;
     int methodeDeDecryptage;
 
-    fichier = fopen("Contact.txt", "r"); /* On ouvre le fichier en lecture seule */
+    fichier = fopen("ContactCrypte.txt", "r"); /* On ouvre le fichier en lecture seule */
+    fichier3 = fopen("ContactDecrypte.txt", "w");
     if (fichier != NULL)
     {
         do
@@ -191,10 +198,12 @@ void decryptageDuFichier (char caractereEnCours, long positionCaractereEnCours)
             caractereEnCours = fgetc(fichier);
             methodeDeDecryptage = lectureFichierDecryptage(positionCaractereEnCours); //détermine la méthode de décryptage à utiliser pour décrypter le caractère caractereEnCours a la position positionCaractereEnCours
             positionCaractereEnCours += 1;
-            applicationDecryptageCaractere(caractereEnCours, methodeDeDecryptage);
+            printf("%c", applicationDecryptageCaractere(caractereEnCours, methodeDeDecryptage));
+            fputc(applicationDecryptageCaractere(caractereEnCours, methodeDeDecryptage), fichier3);
         } while (caractereEnCours != EOF);
     }
     fclose(fichier);
+    fclose(fichier3);
 }
 
 int main ()
@@ -210,7 +219,7 @@ int main ()
 
     caractereEnCours = ' ';
     puts("Le fichier va maintenant etre decrypte...");
-    decryptageDuFichier(caractereEnCours, positionCaractereEnCours);
+    //decryptageDuFichier(caractereEnCours, positionCaractereEnCours);
 
     return 0;
 }
