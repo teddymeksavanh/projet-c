@@ -2,6 +2,15 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+#include "Algorithme/algorithme_1.c"
+#include "Algorithme/algorithme_2.c"
+#include "Algorithme/algorithme_3.c"
+#include "Algorithme/algorithme_4.c"
+#include "Algorithme/algorithme_5.c"
+#include "Algorithme/algorithme_6.c"
+#include "Algorithme/algorithme_7.c"
+#include "Algorithme/algorithme_8.c"
+#include "Algorithme/algorithme_9.c"
 
 int fonctionChoixDuCryptage (int premiereBorne, int deuxiemeBorne) //Cette fonction permet de determiner quelle m?thode de cryptage sera utilis?e
 {
