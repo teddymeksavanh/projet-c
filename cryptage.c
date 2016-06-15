@@ -3,12 +3,25 @@
 #include <stdlib.h>
 #include <time.h>
 
-int fonctionChoixDuCryptage (int premiereBorne, int deuxiemeBorne) //Cette fonction permet de determiner quelle méthode de cryptage sera utilisée
+int fonctionChoixDuCryptage (int premiereBorne, int deuxiemeBorne) //Cette fonction permet de determiner quelle m?thode de cryptage sera utilis?e
 {
         return rand()%(deuxiemeBorne-premiereBorne) +premiereBorne;
 }
 
-char applicationCryptageCaractere (char caractereEnCours, int premiereBorne, int deuxiemeBorne) //Cette fonction contiendra l'ensemble des méthodes de cryptage du prgramme
+void ecritureFichierDecryptage (int choixDuCryptage) //cette proc?dure ?crira dans le fichier decryptage.txt la cl? n?cessaire au d?cryptage des informations
+{
+    FILE* fichier2 = NULL;
+
+    fichier2 = fopen("decryptage.txt", "a");
+
+    if (fichier2 != NULL)
+    {
+        fprintf(fichier2,"%d",choixDuCryptage); // ?criture du caract?re contenu dans choixDuCryptage
+        fclose(fichier2);
+    }
+}
+
+char applicationCryptageCaractere (char caractereEnCours, int premiereBorne, int deuxiemeBorne) //Cette fonction contiendra l'ensemble des m?thodes de cryptage du prgramme
 {
     int choixDuCryptage = fonctionChoixDuCryptage(premiereBorne, deuxiemeBorne);
     switch (choixDuCryptage)
@@ -47,7 +60,7 @@ char applicationCryptageCaractere (char caractereEnCours, int premiereBorne, int
         return caractereEnCours;
 }
 
-char applicationDecryptageCaractere (char caractereEnCours, int methodeDeDecryptage) //Cette fonction contiendra l'ensemble des méthodes de decryptage du programme
+char applicationDecryptageCaractere (char caractereEnCours, int methodeDeDecryptage) //Cette fonction contiendra l'ensemble des m?thodes de decryptage du programme
 {
     int choixDuDecryptage = methodeDeDecryptage;
     switch (choixDuDecryptage)
@@ -85,19 +98,6 @@ char applicationDecryptageCaractere (char caractereEnCours, int methodeDeDecrypt
     return caractereEnCours;
 }
 
-void ecritureFichierDecryptage (int choixDuCryptage) //cette procédure écrira dans le fichier decryptage.txt la clé nécessaire au décryptage des informations
-{
-    FILE* fichier2 = NULL;
-
-    fichier2 = fopen("decryptage.txt", "a");
-
-    if (fichier2 != NULL)
-    {
-        fprintf(fichier2,"%d",choixDuCryptage); // Écriture du caractère contenu dans choixDuCryptage
-        fclose(fichier2);
-    }
-}
-
 int lectureFichierDecryptage (long positionCaractereEnCours)
 {
     FILE* fichier2 = NULL;
@@ -121,10 +121,10 @@ int lectureFichierDecryptage (long positionCaractereEnCours)
 
     //printf("La variable methodeDeDecryptage dans lectureFichierDecryptage vaut : %d \n", methodeDeDecryptage);
 
-    return methodeDeDecryptage; //retourne le numéro de la méthode de cryptage à utiliser pour le caractère positionCaractereEnCours
+    return methodeDeDecryptage; //retourne le num?ro de la m?thode de cryptage ? utiliser pour le caract?re positionCaractereEnCours
 }
 
-void cryptageDuFichier (char caractereEnCours, int premiereBorne, int deuxiemeBorne) //Cette procédure servira à appeler l'ensemble des autres procédures/fonction nécessaires au cryptage du fichier
+void cryptageDuFichier (char caractereEnCours, int premiereBorne, int deuxiemeBorne) //Cette proc?dure servira ? appeler l'ensemble des autres proc?dures/fonction n?cessaires au cryptage du fichier
 {
     FILE* fichier = NULL;
     //int caractereActuel = 0;
@@ -132,7 +132,7 @@ void cryptageDuFichier (char caractereEnCours, int premiereBorne, int deuxiemeBo
     fichier = fopen("Contact.txt", "r"); /* On ouvre le fichier en lecture seule */
     if (fichier != NULL)
     {
-        do                               /* On crée une boucle afin de lire tous les caractères un par un, jusqu'à ce que le résultat contenu soit End Of File */
+        do                               /* On cr?e une boucle afin de lire tous les caract?res un par un, jusqu'? ce que le r?sultat contenu soit End Of File */
         {
             caractereEnCours = fgetc(fichier);
             printf("%c", applicationCryptageCaractere(caractereEnCours, premiereBorne, deuxiemeBorne));
@@ -154,7 +154,7 @@ void decryptageDuFichier (char caractereEnCours, long positionCaractereEnCours)
         do
         {
             caractereEnCours = fgetc(fichier);
-            methodeDeDecryptage = lectureFichierDecryptage(positionCaractereEnCours); //détermine la méthode de décryptage à utiliser pour décrypter le caractère caractereEnCours a la position positionCaractereEnCours
+            methodeDeDecryptage = lectureFichierDecryptage(positionCaractereEnCours); //d?termine la m?thode de d?cryptage ? utiliser pour d?crypter le caract?re caractereEnCours a la position positionCaractereEnCours
             positionCaractereEnCours += 1;
             applicationDecryptageCaractere(caractereEnCours, methodeDeDecryptage);
         } while (caractereEnCours != EOF);
@@ -164,11 +164,11 @@ void decryptageDuFichier (char caractereEnCours, long positionCaractereEnCours)
 
 int main ()
 {
-    int premiereBorne = 1; //On souhaite que chaque caractère soit crypté entre 1
+    int premiereBorne = 1; //On souhaite que chaque caract?re soit crypt? entre 1
     int deuxiemeBorne = 9; //Et 9 fois
     long positionCaractereEnCours = 0;
     char caractereEnCours = ' ';
-    srand(time(NULL)); //time() retourne le nombre de secondes écoulées depuis le 1er janvier 1970
+    srand(time(NULL)); //time() retourne le nombre de secondes ?coul?es depuis le 1er janvier 1970
 
     puts("Le fichier va maintenant etre crypte...");
     cryptageDuFichier(caractereEnCours, premiereBorne, deuxiemeBorne);
