@@ -1,0 +1,4 @@
+Le développement de l'application ainsi que sa compilation auront été effectué sous un environnement Windows.
+La compilation aura été effectuée sous un Windows 10 pro 64 bits.
+Le logiciel utilisé est Code::Blocks 13.12. Le compilateur utilisé est le mingw32-g++.
+Concernant les caractéristiques de la machine ayant servi à compiler, celle-ci tourne grâce à un Intel core i7 4770K, 16GB de RAM et une Asus ROG Maximus VI Hero.

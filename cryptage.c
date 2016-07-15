@@ -120,6 +120,7 @@ void Affichage (struct Tcontact contact[100])
             printf("%c", caractereActuel);
         } while (caractereActuel != EOF);
     }
+    fclose(fichier);
 }
 /* Fin de la procédure */
 
@@ -497,37 +498,111 @@ int fonctionChoixDuCryptage (int premiereBorne, int deuxiemeBorne) //Cette fonct
         return rand()%(deuxiemeBorne-premiereBorne) +premiereBorne;
 }
 
-char cryptageCesar (caractereEnCours)
+char cryptageDeMerdeUn (caractereEnCours)
 {
-    /* Si le caractere est une minuscule */
-    if ('a' <= caractereEnCours && caractereEnCours <= 'z')
-        caractereEnCours = 'a' + ((caractereEnCours - 'a') + 13)%26;
-    else
-        /* Si le caractere est une majuscule */
-    if ('A' <= caractereEnCours && caractereEnCours <= 'Z')
-        caractereEnCours = 'A' + ((caractereEnCours - 'A') + 13)%26;
-    else
-        /* Si le caractere est un chiffre */
-    if ('0' <= caractereEnCours && caractereEnCours <= '9')
-        caractereEnCours = '0' + ((caractereEnCours - '0') + 13)%10;
-
+    caractereEnCours = caractereEnCours + 1;
     return caractereEnCours;
 }
 
-char decryptageCesar (caractereEnCours)
+char decryptageDeMerdeUn (caractereEnCours)
 {
-        /* Si le caractere est une minuscule */
-        if ('a' <= caractereEnCours && caractereEnCours <= 'z')
-            caractereEnCours = 'z' + ((caractereEnCours - 'z') - 13)%26;
-        else
-            /* Si le caractere est une majuscule */
-        if ('A' <= caractereEnCours && caractereEnCours <= 'Z')
-            caractereEnCours = 'Z' + ((caractereEnCours - 'Z') - 13)%26;
-        else
-            /* Si le caractere est un chiffre */
-        if ('0' <= caractereEnCours && caractereEnCours <= '9')
-            caractereEnCours = '0' + ((caractereEnCours - '0') - 13)%10;
+    caractereEnCours = caractereEnCours - 1;
+    return caractereEnCours;
+}
 
+char cryptageDeMerdeDeux (caractereEnCours)
+{
+    caractereEnCours = caractereEnCours + 2;
+    return caractereEnCours;
+}
+
+char decryptageDeMerdeDeux (caractereEnCours)
+{
+    caractereEnCours = caractereEnCours - 2;
+    return caractereEnCours;
+}
+
+char cryptageDeMerdeTrois (caractereEnCours)
+{
+    caractereEnCours = caractereEnCours + 3;
+    return caractereEnCours;
+}
+
+char decryptageDeMerdeTrois (caractereEnCours)
+{
+    caractereEnCours = caractereEnCours - 3;
+    return caractereEnCours;
+}
+
+char cryptageDeMerdeQuatre (caractereEnCours)
+{
+    caractereEnCours = caractereEnCours + 4;
+    return caractereEnCours;
+}
+
+char decryptageDeMerdeQuatre (caractereEnCours)
+{
+    caractereEnCours = caractereEnCours - 4;
+    return caractereEnCours;
+}
+
+char cryptageDeMerdeCinq (caractereEnCours)
+{
+    caractereEnCours = caractereEnCours + 5;
+    return caractereEnCours;
+}
+
+char decryptageDeMerdeCinq (caractereEnCours)
+{
+    caractereEnCours = caractereEnCours - 5;
+    return caractereEnCours;
+}
+
+char cryptageDeMerdeSix (caractereEnCours)
+{
+    caractereEnCours = caractereEnCours + 6;
+    return caractereEnCours;
+}
+
+char decryptageDeMerdeSix (caractereEnCours)
+{
+    caractereEnCours = caractereEnCours - 6;
+    return caractereEnCours;
+}
+
+char cryptageDeMerdeSept (caractereEnCours)
+{
+    caractereEnCours = caractereEnCours + 7;
+    return caractereEnCours;
+}
+
+char decryptageDeMerdeSept (caractereEnCours)
+{
+    caractereEnCours = caractereEnCours - 7;
+    return caractereEnCours;
+}
+
+char cryptageDeMerdeHuit (caractereEnCours)
+{
+    caractereEnCours = caractereEnCours + 8;
+    return caractereEnCours;
+}
+
+char decryptageDeMerdeHuit (caractereEnCours)
+{
+    caractereEnCours = caractereEnCours - 8;
+    return caractereEnCours;
+}
+
+char cryptageDeMerdeNeuf (caractereEnCours)
+{
+    caractereEnCours = caractereEnCours + 9;
+    return caractereEnCours;
+}
+
+char decryptageDeMerdeNeuf (caractereEnCours)
+{
+    caractereEnCours = caractereEnCours - 9;
     return caractereEnCours;
 }
 
@@ -538,31 +613,39 @@ char applicationCryptageCaractere (char caractereEnCours, int premiereBorne, int
     {
         case 1:
             ecritureFichierDecryptage(choixDuCryptage);
-            caractereEnCours = cryptageCesar(caractereEnCours);
+            caractereEnCours = cryptageDeMerdeUn(caractereEnCours);
             break;
         case 2:
             ecritureFichierDecryptage(choixDuCryptage);
+            caractereEnCours = cryptageDeMerdeDeux(caractereEnCours);
             break;
         case 3:
             ecritureFichierDecryptage(choixDuCryptage);
+            caractereEnCours = cryptageDeMerdeTrois(caractereEnCours);
             break;
         case 4:
             ecritureFichierDecryptage(choixDuCryptage);
+            caractereEnCours = cryptageDeMerdeQuatre(caractereEnCours);
             break;
         case 5:
             ecritureFichierDecryptage(choixDuCryptage);
+            caractereEnCours = cryptageDeMerdeCinq(caractereEnCours);
             break;
         case 6:
             ecritureFichierDecryptage(choixDuCryptage);
+            caractereEnCours = cryptageDeMerdeSix(caractereEnCours);
             break;
         case 7:
             ecritureFichierDecryptage(choixDuCryptage);
+            caractereEnCours = cryptageDeMerdeSept(caractereEnCours);
             break;
         case 8:
             ecritureFichierDecryptage(choixDuCryptage);
+            caractereEnCours = cryptageDeMerdeHuit(caractereEnCours);
             break;
         case 9:
             ecritureFichierDecryptage(choixDuCryptage);
+            caractereEnCours = cryptageDeMerdeNeuf(caractereEnCours);
             break;
         default:
             puts("Ce cryptage n'est pas disponible");
@@ -577,32 +660,39 @@ char applicationDecryptageCaractere (char caractereEnCours, int methodeDeDecrypt
     switch (choixDuDecryptage)
     {
         case 1:
-            caractereEnCours = decryptageCesar(caractereEnCours);
+            caractereEnCours = decryptageDeMerdeUn(caractereEnCours);
             //puts("Methode 1");
             break;
         case 2:
+            caractereEnCours = decryptageDeMerdeDeux(caractereEnCours);
             //puts("Methode 2");
             break;
         case 3:
+            caractereEnCours = decryptageDeMerdeTrois(caractereEnCours);
             //puts("Methode 3");
             break;
         case 4:
+            caractereEnCours = decryptageDeMerdeQuatre(caractereEnCours);
             //puts("Methode 4");
             break;
         case 5:
+            caractereEnCours = decryptageDeMerdeCinq(caractereEnCours);
             //puts("Methode 5");
             break;
         case 6:
+            caractereEnCours = decryptageDeMerdeSix(caractereEnCours);
             //puts("Methode 6");
             break;
         case 7:
+            caractereEnCours = decryptageDeMerdeSept(caractereEnCours);
            // puts("Methode 7");
             break;
         case 8:
+            caractereEnCours = decryptageDeMerdeHuit(caractereEnCours);
             //puts("Methode 8");
             break;
         case 9:
-            puts("Methode 9");
+            caractereEnCours = decryptageDeMerdeNeuf(caractereEnCours);
             break;
         default:
             puts("Ce decryptage n'est pas disponible");
@@ -652,7 +742,7 @@ void cryptageDuFichier (char caractereEnCours, int premiereBorne, int deuxiemeBo
     //int caractereActuel = 0;
 
     fichier = fopen("Contact.txt", "r");
-    fichier2 = fopen("ContactCrypte.txt", "w");
+    fichier2 = fopen("ContactCrypte.txt", "w+");
     if (fichier != NULL)
     {
         do                               /* On crée une boucle afin de lire tous les caractères un par un, jusqu'à ce que le résultat contenu soit End Of File */
@@ -664,6 +754,23 @@ void cryptageDuFichier (char caractereEnCours, int premiereBorne, int deuxiemeBo
         fclose(fichier2);
         puts("FIN DU CRYPTAGE DU FICHIER !\n");
     }
+    if (rename("Contact.txt", "Temporaire.txt") == 0)
+    {
+        printf("Succes renommage Contact.txt\n");
+    }
+    else
+    {
+        printf("Echec renommage Contact.txt\n");
+    }
+    if (rename("ContactCrypte.txt", "Contact.txt") == 0)
+    {
+        printf("Succes renommage ContactCrypte.txt\n");
+    }
+    else
+    {
+        printf("Echec renommage ContactCrypte.txt \n");
+    }
+    remove("Temporaire.txt");
 }
 
 void decryptageDuFichier (char caractereEnCours, long positionCaractereEnCours)
@@ -672,7 +779,7 @@ void decryptageDuFichier (char caractereEnCours, long positionCaractereEnCours)
     FILE* fichier3 = NULL;
     int methodeDeDecryptage;
 
-    fichier = fopen("ContactCrypte.txt", "r"); /* On ouvre le fichier en lecture seule */
+    fichier = fopen("Contact.txt", "r"); /* On ouvre le fichier en lecture seule */
     fichier3 = fopen("ContactDecrypte.txt", "w");
     if (fichier != NULL)
     {
@@ -687,6 +794,23 @@ void decryptageDuFichier (char caractereEnCours, long positionCaractereEnCours)
     }
     fclose(fichier);
     fclose(fichier3);
+    if (rename("Contact.txt", "Temporaire.txt") == 0)
+    {
+        printf("Succes renommage Contact.txt\n");
+    }
+    else
+    {
+        printf("Echec renommage Contact.txt\n");
+    }
+    if (rename("ContactDecrypte.txt", "Contact.txt") == 0)
+    {
+        printf("Succes renommage ContactDecrypte.txt\n");
+    }
+    else
+    {
+        printf("Echec renommage ContactDecrypte.txt\n");
+    }
+    remove("Temporaire.txt");
     puts("FIN DU DECRYPTAGE DU FICHIER !");
 }
 
