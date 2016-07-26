@@ -754,6 +754,8 @@ void cryptageDuFichier (char caractereEnCours, int premiereBorne, int deuxiemeBo
         fclose(fichier2);
         puts("FIN DU CRYPTAGE DU FICHIER !\n");
     }
+    rename("Contact.txt", "Temporaire.txt");
+    rename("ContactCrypte.txt", "Contact.txt");
     remove("Temporaire.txt");
 }
 
@@ -778,6 +780,8 @@ void decryptageDuFichier (char caractereEnCours, long positionCaractereEnCours)
     }
     fclose(fichier);
     fclose(fichier3);
+    rename("Contact.txt", "Temporaire.txt");
+    rename("ContactDecrypte.txt", "Contact.txt");
     remove("Temporaire.txt");
     puts("FIN DU DECRYPTAGE DU FICHIER !");
 }
