@@ -754,22 +754,6 @@ void cryptageDuFichier (char caractereEnCours, int premiereBorne, int deuxiemeBo
         fclose(fichier2);
         puts("FIN DU CRYPTAGE DU FICHIER !\n");
     }
-    if (rename("Contact.txt", "Temporaire.txt") == 0)
-    {
-        printf("Succes renommage Contact.txt\n");
-    }
-    else
-    {
-        printf("Echec renommage Contact.txt\n");
-    }
-    if (rename("ContactCrypte.txt", "Contact.txt") == 0)
-    {
-        printf("Succes renommage ContactCrypte.txt\n");
-    }
-    else
-    {
-        printf("Echec renommage ContactCrypte.txt \n");
-    }
     remove("Temporaire.txt");
 }
 
@@ -794,22 +778,6 @@ void decryptageDuFichier (char caractereEnCours, long positionCaractereEnCours)
     }
     fclose(fichier);
     fclose(fichier3);
-    if (rename("Contact.txt", "Temporaire.txt") == 0)
-    {
-        printf("Succes renommage Contact.txt\n");
-    }
-    else
-    {
-        printf("Echec renommage Contact.txt\n");
-    }
-    if (rename("ContactDecrypte.txt", "Contact.txt") == 0)
-    {
-        printf("Succes renommage ContactDecrypte.txt\n");
-    }
-    else
-    {
-        printf("Echec renommage ContactDecrypte.txt\n");
-    }
     remove("Temporaire.txt");
     puts("FIN DU DECRYPTAGE DU FICHIER !");
 }
